@@ -1,49 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="Numbers" ng-cloak>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-    <title>CNN</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/numbers.css"/>
-
-    <!-- JS -->
-    <script src="/static/js/jquery-1.12.4.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/custom.js"></script>
-    <script src="/static/js/angular.min.js"></script>
-    <script src="/static/js/angular-sanitize.js"></script>
-    <script src="/static/js/Numbers.js"></script>
-
-
-</head>
-<body ng-controller="MainController">
-<div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand">INFO-H-410 | Techniques of Artifical Intelligence</a>
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-            <ul class="nav navbar-nav">
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-            </ul>
-
-        </div>
-    </div>
-</div>
-
+ {% extends 'base.html' %}
+ {% block content %}
 
 <div class="container">
 
@@ -101,5 +57,4 @@
     </footer>
 
 </div>
-</body>
-</html>
+{% endblock %}
