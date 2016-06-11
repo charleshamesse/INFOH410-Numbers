@@ -17,7 +17,7 @@ def train(request):
     print("begin")
     training_data, validation_data, test_data = mnl.load_data_wrapper()
     print("loaded ... starting training")
-    ar,steps = net.SGD(training_data, 1, 10, 3.0, test_data=test_data)
+    ar,steps = net.SGD(training_data, 2, 10, 3.0, test_data=test_data)
     data = {'error':ar,'batch':steps}
     return JsonResponse(data)
 
@@ -28,6 +28,7 @@ def recognize(request):
         data = json.loads(request.body)
         a = np.array(data['img'])
         n = a.reshape(-1,100).max(axis=-1) #downsampling
-        print(net.feedforward(n))
-        return HttpResponse("OK")
+        n = np.ndarray((28*28,1),buffer=np.array(n))
+        ans = net.feedforward(n)
+        return JsonResponse({'ans':np.argmax(ans)})
     return HttpResponse("Error")

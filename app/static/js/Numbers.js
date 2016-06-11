@@ -8,7 +8,6 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
         $scope.train = function () {
             $http.get("/nn/train",{})
             .success(function(response) {
-                $scope.response = response;
                 $scope.labels = response.batch;
                 $scope.series = ['Accuracy'];
                 $scope.data = [response.error];
@@ -33,7 +32,7 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
             var imageArray = JSON.stringify({"img":img});
             $http.post('nn/recognize',imageArray).
                 success(function(data, status, headers, config) {
-                    console.log(data);
+                    $scope.recognized = data.ans;
                 }).
                 error(function(data, status, headers, config) {
                     // called asynchronously if an error occurs
