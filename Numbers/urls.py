@@ -21,5 +21,6 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     #url(r'^$', TemplateView.as_view(template_name="index.html"), name='index')
     url(r'^$', views.index, name='index'),
-    url(r'^nn/train$', views.train, name='train')
+    url(r'^nn/train$', views.train, name='train'),
+    url(r'^nn/recognize',views.recognize, name='recognize')
 ]
