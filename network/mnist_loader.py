@@ -14,6 +14,8 @@ import gzip
 
 # Third-party libraries
 import numpy as np
+import os
+
 
 def load_data():
     """Return the MNIST data as a tuple containing the training data,
@@ -34,7 +36,8 @@ def load_data():
     That's done in the wrapper function ``load_data_wrapper()``, see
     below.
     """
-    f = gzip.open('./mnist.pkl.gz', 'rb')
+    path = os.getcwd() + "/app/static/mnist.pkl.gz"
+    f = gzip.open(path, 'rb')
     training_data, validation_data, test_data = cPickle.load(f)
     f.close()
     return (training_data, validation_data, test_data)
