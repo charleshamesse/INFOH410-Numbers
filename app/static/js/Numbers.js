@@ -4,27 +4,21 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
         $interpolateProvider.endSymbol('}]}');
     })
     .controller('MainController', function ($scope, $http,$timeout) {
-        $scope.test = "mmmh";
         // Train
         $scope.train = function () {
-            $http({
-                method: 'GET',
-                url: 'nn/train'
-            }).then(function successCallback(response) {
+            $http.get("/nn/train",{})
+            .success(function(response) {
                 $scope.response = response;
-            }, function errorCallback(response) {
+                $scope.labels = response.batch;
+                $scope.series = ['Accuracy'];
+                $scope.data = [response.error];
+            })
+            .error(function(response) {
                 $scope.response = "Error: " + response;
             });
-        };
-
-        $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-        $scope.series = ['Series A', 'Series B'];
-        $scope.data = [
-        [65, 59, 80, 81, 56, 55, 40],
-        [28, 48, 40, 19, 86, 27, 90]
-        ];
-        $scope.onClick = function (points, evt) {
-            console.log(points, evt);
+            $scope.onClick = function (points, evt) {
+                console.log(points, evt);
+            };
         };
 
         // Test

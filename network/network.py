@@ -88,6 +88,7 @@ class Network(object):
 
     def SGD(self, training_data, epochs, mini_batch_size, eta,
             validation_data, test_data, lmbda=0.0):
+        resIter = []
         """Train the network using mini-batch stochastic gradient descent."""
         training_x, training_y = training_data
         validation_x, validation_y = validation_data
@@ -141,15 +142,21 @@ class Network(object):
             })
         # Do the actual training
         best_validation_accuracy = 0.0
+        resBatch = []
         for epoch in xrange(epochs):
             for minibatch_index in xrange(num_training_batches):
                 iteration = num_training_batches*epoch+minibatch_index
-                if iteration % 1000 == 0:
+                if iteration % 100 == 0:
                     print("Training mini-batch number {0}".format(iteration))
+                    validation_accuracy = np.mean([validate_mb_accuracy(j) for j in xrange(num_validation_batches)])
+                    resIter.append(validation_accuracy)
+                    resBatch.append(iteration)
                 cost_ij = train_mb(minibatch_index)
                 if (iteration+1) % num_training_batches == 0:
                     validation_accuracy = np.mean(
                         [validate_mb_accuracy(j) for j in xrange(num_validation_batches)])
+                    resIter.append(validation_accuracy)
+                    resBatch.append(iteration)
                     print("Epoch {0}: validation accuracy {1:.2%}".format(
                         epoch, validation_accuracy))
                     if validation_accuracy >= best_validation_accuracy:
@@ -165,6 +172,7 @@ class Network(object):
         print("Best validation accuracy of {0:.2%} obtained at iteration {1}".format(
             best_validation_accuracy, best_iteration))
         print("Corresponding test accuracy of {0:.2%}".format(test_accuracy))
+        return resIter,resBatch
 
 
 

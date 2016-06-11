@@ -1,5 +1,5 @@
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import os.path
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.shortcuts import render_to_response
@@ -29,15 +29,13 @@ def index(request):
 
 
 def train(request):
-    html = "ok manny"
-    #basic_conv(1, 1)
-    return HttpResponse(html)
+    ar,steps = basic_conv(1, 1)
+    data = {'error':ar,'batch':steps}
+    return JsonResponse(data)
 
 def basic_conv(n=3, epochs=60):
-    for j in range(n):
-        print "Conv + FC architecture"
-        net.SGD(training_data, epochs, mini_batch_size, 0.1, validation_data, test_data)
-    return net
+    ar = net.SGD(training_data, epochs, mini_batch_size, 0.1, validation_data, test_data)
+    return ar
 
 
 @csrf_exempt
