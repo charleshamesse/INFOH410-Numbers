@@ -6,11 +6,13 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
     .controller('MainController', function ($scope, $http,$timeout) {
         // Train
         $scope.train = function () {
+            $scope.loading = true;
             $http.get("/nn/train",{})
             .success(function(response) {
                 $scope.labels = response.batch;
                 $scope.series = ['Accuracy'];
                 $scope.data = [response.error];
+                $scope.loading = false;
             })
             .error(function(response) {
                 $scope.response = "Error: " + response;
