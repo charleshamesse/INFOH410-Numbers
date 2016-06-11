@@ -1,4 +1,7 @@
 import json
+from scipy import ndimage
+from skimage.measure import block_reduce
+
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
@@ -27,8 +30,20 @@ def recognize(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         a = np.array(data['img'])
-        n = a.reshape(-1,100).max(axis=-1) #downsampling
+        s = a.reshape((280,280))
+        n = block_mean(s, 10)
+        n /= float(255)
         n = np.ndarray((28*28,1),buffer=np.array(n))
         ans = net.feedforward(n)
         return JsonResponse({'ans':np.argmax(ans)})
     return HttpResponse("Error")
+
+
+def block_mean(ar, fact):
+    assert isinstance(fact, int), type(fact)
+    sx, sy = ar.shape
+    X, Y = np.ogrid[0:sx, 0:sy]
+    regions = sy/fact * (X/fact) + Y/fact
+    res = ndimage.mean(ar, labels=regions, index=np.arange(regions.max() + 1))
+    res.shape = (sx/fact, sy/fact)
+    return res
