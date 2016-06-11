@@ -9,7 +9,7 @@ import numpy as np
 import network.mnist_loader as mnl
 from network.network2 import Network2
 
-net = Network2([784, 100, 10])
+net = Network2([784, 90, 10])
 
 
 def index(request):
@@ -20,7 +20,7 @@ def train(request):
     print("begin")
     training_data, validation_data, test_data = mnl.load_data_wrapper()
     print("loaded ... starting training")
-    ar,steps = net.SGD(training_data, 2, 10, 3.0, test_data=test_data)
+    ar,steps = net.SGD(training_data, 5, 10, 3.0, test_data=test_data)
     data = {'error':ar,'batch':steps}
     return JsonResponse(data)
 
