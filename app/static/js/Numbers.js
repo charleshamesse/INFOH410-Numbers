@@ -56,8 +56,8 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
         $scope.function_launch = function () {
             $scope.loading = true;
             $http.post("/fn/go",{
-                'fn': "d",
-                'domain': "d",
+                'layers': "1",
+                'nodes': "20",
                 'function': $scope.function,
                 'iterations': $scope.iterations,
                 'rate': $scope.rate

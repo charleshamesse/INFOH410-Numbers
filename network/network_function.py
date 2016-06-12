@@ -1,7 +1,7 @@
 import random
 import math
 
-def activationFunction(x):
+def transferFunction(x):
    return 1.0 / (1.0 + math.exp(-x))
 
 class Node:
@@ -28,7 +28,7 @@ class Node:
          self.lastInput.append(theInput)
          weightedSum += e.weight * theInput
 
-      self.lastOutput = activationFunction(weightedSum)
+      self.lastOutput = transferFunction(weightedSum)
       self.evaluateCache = self.lastOutput
       return self.lastOutput
 

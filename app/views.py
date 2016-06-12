@@ -99,7 +99,7 @@ def function_go(request):
 
         return network
 
-    trained_network = makeTrainedNetwork(1, 20, int(data['iterations']), float(data['rate']))
+    trained_network = makeTrainedNetwork(int(data['layers']), int(data['nodes']), int(data['iterations']), float(data['rate']))
     p_sw = []
     p_nsw = []
     p_xaxis = []
@@ -110,7 +110,6 @@ def function_go(request):
         p_nsw.append(y_nsw)
         p_xaxis.append(i)
 
-    print(p_nsw)
     return JsonResponse({
         'data': p_nsw,
         'target': p_sw,

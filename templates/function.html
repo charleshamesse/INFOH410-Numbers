@@ -15,10 +15,12 @@
     <div class="row">
         <div class="col-lg-12">
             <h2>Enter a mathematical expression</h2>
-            <input class="input-lg" size="30" ng-model="function" placeholder="0.5 * (1.0 + math.cos(x))" />
-            <input class="input-lg" ng-model="iterations" placeholder="5000" />
-            <input class="input-lg" ng-model="rate" placeholder="0.25" />
-            <a href="" ng-click='function = "0.5 * (1.0 + math.cos(x))"; iterations = 5000; rate = 0.25'>Fill</a>
+            <input class="input-lg" size="32" ng-model="function" placeholder="expression" />
+            <input class="input-lg" size="12" ng-model="iterations" placeholder="# iterations" />
+            <input class="input-lg" size="12" ng-model="rate" placeholder="learning rate" />
+            <input class="input-lg" size="8" ng-model="layers" placeholder="# layers" />
+            <input class="input-lg" size="8" ng-model="neurons" placeholder="# nodes" />
+            <a href="" ng-click='function = "0.5 * (1.0 + math.cos(x))"; iterations = 5000; rate = 0.25; layers=1; neurons=20'>Fill</a>
         </div>
         <div class="col-lg-12">
             <br/><br/>
