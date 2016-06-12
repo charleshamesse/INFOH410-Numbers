@@ -18,9 +18,9 @@ from django.views.generic import TemplateView
 # from django.contrib import admin
 from app import views;
 urlpatterns = [
-    # url(r'^admin/', admin.site.urls),
-    #url(r'^$', TemplateView.as_view(template_name="index.html"), name='index')
     url(r'^$', views.index, name='index'),
     url(r'^nn/train$', views.train, name='train'),
-    url(r'^nn/recognize',views.recognize, name='recognize')
+    url(r'^nn/recognize',views.recognize, name='recognize'),
+    url(r'^function',views.function, name='function'),
+    url(r'^fn/go',views.function_go, name='function_go')
 ]

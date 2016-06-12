@@ -1,0 +1,50 @@
+ {% extends 'base.html' %}
+ {% block content %}
+
+<div class="container">
+
+    <div class="page-header" id="banner">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-sm-6">
+                <h1>Approximating functions</h1>
+                <p class="lead">Using Neural Networks</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Enter a mathematical expression</h2>
+            <input class="input-lg" ng-model="function" placeholder="0.5 * (1.0 + math.cos(x))" />
+            <input class="input-lg" ng-model="iterations" placeholder="5000" />
+            <input class="input-lg" ng-model="rate" placeholder="0.25" />
+            <a href="" ng-click='function = "0.5 * (1.0 + math.cos(x))"; iterations = 5000; rate = 0.25'>Fill</a>
+        </div>
+        <div class="col-lg-12">
+            <br/><br/>
+            <div align="center">
+                <button ng-click="function_launch()" class="btn btn-primary">Go</button>
+            </div>
+            <!--{[{ response }]}-->
+            <div ng-show="loading" class="loading" align="center"><img src="/static/svg/gears.svg">LOADING...</div>
+            <canvas id="line" class="chart chart-line" chart-data="data"
+              chart-labels="labels" chart-legend="true" chart-series="series"
+              chart-click="onClick" >
+            </canvas>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+
+                <p>Made by Nazar Filipchuk, Benjamin Akboka, Charles Hamesse</p>
+
+            </div>
+        </div>
+
+    </footer>
+
+</div>
+{% endblock %}
