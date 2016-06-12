@@ -1,8 +1,15 @@
+import gzip
 import json
+import os
+import random
 from scipy import ndimage
 from skimage.measure import block_reduce
 
 import sys
+
+import cPickle
+
+import scipy
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
@@ -36,8 +43,22 @@ def recognize(request):
         n /= float(255)
         n = np.ndarray((28*28,1),buffer=np.array(n))
         ans = net.feedforward(n)
-        return JsonResponse({'ans':np.argmax(ans)})
+        return JsonResponse({'ans':np.argmax(ans),'x':range(0,9),'ansL':ans.tolist()})
     return HttpResponse("Error")
+
+
+def recognizeMNist(request):
+    path = os.getcwd() + "/app/static/mnist.pkl.gz"
+    f = gzip.open(path, 'rb')
+    data_x,data_y, yolo = cPickle.load(f)
+    d_x, d_y = data_x
+    f.close()
+    rand = random.randint(0,len(d_x))
+    ans = net.feedforward(d_x[rand].reshape((784,1)))
+    img = d_x[rand].reshape(28,28)*255
+    img = scipy.ndimage.zoom(img, 10, order=0)
+    img = img.reshape((78400,1)).tolist()
+    return JsonResponse({'ans':np.argmax(ans),'img':img})
 
 
 def block_mean(ar, fact):

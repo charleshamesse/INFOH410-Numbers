@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^nn/train$', views.train, name='train'),
     url(r'^nn/recognize',views.recognize, name='recognize'),
     url(r'^save',views.saveNet,name='saveNet'),
-    url(r'^load',views.loadNet,name='loadNet')
+    url(r'^load',views.loadNet,name='loadNet'),
+    url(r'^nn/mnist',views.recognizeMNist,name='nist')
 ]

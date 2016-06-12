@@ -22,7 +22,7 @@
                 thought it was with the solution. Then the error will be back propagated to change tha valus of each
                 neurons. A dataset of 40000 images will be used to train this network. This database comes from the NIST.
             </p>
-            <p>To begin the training click the button underneath. A graph will show the training of the network in real time.</p>
+            <p>To begin the training click the button underneath. A graph will show the training of the network once finished.</p>
 
             <br/><br/>
             <div align="center">
@@ -38,10 +38,10 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-7">
+        <div class="col-lg-6">
             <h2>2. Test</h2>
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-6">
             <h2>Results</h2>
         </div>
         <div class="col-lg-3">
@@ -51,8 +51,28 @@
                 <button ng-click="test()" class="btn btn-primary">Recognize</button>
             </div>
         </div>
-        <div class="col-lg-5 col-lg-offset-4">
+        <div class="col-lg-6 col-lg-offset-3">
             <h1>{[{ recognized }]}</h1>
+            <canvas id="bar" class="chart chart-bar"
+              chart-data="dataR" chart-labels="labelsR" chart-series="seriesR">
+            </canvas>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>3. Random image from MNIST</h2>
+        </div>
+        <div class="col-lg-6">
+            <h3> Image from MNIST</h3>
+            <canvas id="n-canvas2" width="280" height="280" class="n-canvas"></canvas><br/>
+            <button ng-click="nist()" class="btn btn-primary">Recognize</button>
+
+        </div>
+        <div class="col-lg-6">
+            <h3> Result from NN</h3>
+            <h1 ng-show="!loadingNIST">{[{ recognizedNIST }]}</h1>
+            <div ng-show="loadingNIST" class="loading" align="center"><img src="/static/svg/gears.svg">LOADING...</div>
         </div>
     </div>
 

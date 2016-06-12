@@ -35,11 +35,16 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
             $http.post('nn/recognize',imageArray).
                 success(function(data, status, headers, config) {
                     $scope.recognized = data.ans;
+                    $scope.labelsR = data.x;
+                    $scope.seriesR = ['Series A'];
+
+                    $scope.dataR = [data.ansL];
                 }).
                 error(function(data, status, headers, config) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                   });
+
         };
 
         // Utils
@@ -72,7 +77,26 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
                 $scope.success = false;
             })
         };
-
+        $scope.nist = function(){
+            $scope.loadingNIST = true;
+            $http.get("/nn/mnist",{})
+            .success(function(data) {
+                $scope.recognizedNIST = data.ans;
+                var canvas = angular.element( document.querySelector( '#n-canvas2' ) ).get(0);
+                var ctx = canvas.getContext('2d');
+                var imgdata = ctx.createImageData(280, 280);
+                for (var i = 0, len = 280 * 280 * 4; i < len; i++) {
+                    if(i %4 )
+                        imgdata.data[i] = data.img[i];
+                    if(i%3)
+                        imgdata.data[i] = 255;
+                }
+                ctx.putImageData(imgdata,0,0);
+                $scope.loadingNIST = false;
+            })
+            .error(function(response){
+            })
+        };
     })
     .directive("drawing", function () {
         return {
