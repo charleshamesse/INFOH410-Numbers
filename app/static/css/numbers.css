@@ -5,3 +5,11 @@
 .loading {
     padding: 100px;
 }
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}

@@ -49,6 +49,30 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
+        $scope.save = function(){
+            $http.get("/save",{})
+            .success(function(response) {
+                $scope.success = true;
+                $scope.error = false;
+            })
+            .error(function(response){
+                $scope.error = true;
+                $scope.success = false;
+            })
+        };
+
+        $scope.load = function(){
+            $http.get("/load",{})
+            .success(function(response) {
+                $scope.error = false;
+                $scope.success = true;
+            })
+            .error(function(response){
+                $scope.error = true;
+                $scope.success = false;
+            })
+        };
+
     })
     .directive("drawing", function () {
         return {

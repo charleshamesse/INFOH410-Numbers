@@ -22,5 +22,7 @@ urlpatterns = [
     #url(r'^$', TemplateView.as_view(template_name="index.html"), name='index')
     url(r'^$', views.index, name='index'),
     url(r'^nn/train$', views.train, name='train'),
-    url(r'^nn/recognize',views.recognize, name='recognize')
+    url(r'^nn/recognize',views.recognize, name='recognize'),
+    url(r'^save',views.saveNet,name='saveNet'),
+    url(r'^load',views.loadNet,name='loadNet')
 ]

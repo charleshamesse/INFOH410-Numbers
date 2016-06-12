@@ -2,6 +2,7 @@ import json
 from scipy import ndimage
 from skimage.measure import block_reduce
 
+import sys
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
@@ -9,7 +10,7 @@ import numpy as np
 import network.mnist_loader as mnl
 from network.network2 import Network2
 
-net = Network2([784, 90, 10])
+net = Network2([784, 100, 30, 10])
 
 
 def index(request):
@@ -20,7 +21,7 @@ def train(request):
     print("begin")
     training_data, validation_data, test_data = mnl.load_data_wrapper()
     print("loaded ... starting training")
-    ar,steps = net.SGD(training_data, 5, 10, 3.0, test_data=test_data)
+    ar,steps = net.SGD(training_data, 30, 10, 3.0, test_data=test_data)
     data = {'error':ar,'batch':steps}
     return JsonResponse(data)
 
@@ -47,3 +48,14 @@ def block_mean(ar, fact):
     res = ndimage.mean(ar, labels=regions, index=np.arange(regions.max() + 1))
     res.shape = (sx/fact, sy/fact)
     return res
+
+
+@csrf_exempt
+def saveNet(request):
+    net.save("yolo")
+    return HttpResponse("good")
+
+@csrf_exempt
+def loadNet(request):
+    net.load("yolo")
+    return HttpResponse("good")

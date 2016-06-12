@@ -11,6 +11,7 @@ and omits many desirable features.
 
 #### Libraries
 # Standard library
+import json
 import random
 
 # Third-party libraries
@@ -63,8 +64,8 @@ class Network2(object):
             for mini_batch in mini_batches:
                 self.update_mini_batch(mini_batch, eta)
             if test_data:
-                print "Epoch {0}: {1} / {2}".format(
-                    j, self.evaluate(test_data), n_test)
+                #print "Epoch {0}: {1} / {2}".format(
+                #    j, self.evaluate(test_data), n_test)
                 resEr.append(self.evaluate(test_data)/float(n_test))
                 resBatch.append(j)
             else:
@@ -135,6 +136,30 @@ class Network2(object):
         """Return the vector of partial derivatives \partial C_x /
         \partial a for the output activations."""
         return (output_activations-y)
+
+
+    def save(self, filename):
+        """Save the neural network to the file ``filename``."""
+        data = {"sizes": self.sizes,
+                "weights": [w.tolist() for w in self.weights],
+                "biases": [b.tolist() for b in self.biases]}
+        filename = filename
+        f = open(filename, "w")
+        json.dump(data, f)
+        f.close()
+
+
+    #### Loading a Network
+    def load(self,filename):
+        """Load a neural network from the file ``filename``.  Returns an
+        instance of Network.
+        """
+        filename = filename
+        f = open(filename, "r")
+        data = json.load(f)
+        f.close()
+        self.weights = [np.array(w) for w in data["weights"]]
+        self.biases = [np.array(b) for b in data["biases"]]
 
 #### Miscellaneous functions
 def sigmoid(z):

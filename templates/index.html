@@ -56,6 +56,21 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Load and Save</h2>
+        </div>
+        <div class="col-lg-12">
+            <p>If you like the result from this training you can save the configuration by clicking the button below.
+            Only one configuration can be saved !</p>
+            <button ng-click="save()" class="btn btn-default">Save</button>
+            <button ng-click="load()" class="btn btn-primary">Load</button>
+            <div class="col-lg-12">
+                <p ng-show="success" class="success"> Everything went ok </p>
+                <p ng-show="error" class="error"> Something bad happend </p>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="row">
