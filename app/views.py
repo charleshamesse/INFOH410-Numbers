@@ -52,10 +52,10 @@ def block_mean(ar, fact):
 
 @csrf_exempt
 def saveNet(request):
-    net.save("yolo")
+    net.save("configNeuralNetwork")
     return HttpResponse("good")
 
 @csrf_exempt
 def loadNet(request):
-    net.load("yolo")
+    net.load("configNeuralNetwork")
     return HttpResponse("good")
