@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^nn/recognize',views.recognize, name='recognize'),
     url(r'^save',views.saveNet,name='saveNet'),
     url(r'^load',views.loadNet,name='loadNet'),
-    url(r'^nn/mnist',views.recognizeMNist,name='nist')
+    url(r'^nn/mnist',views.recognizeMNist,name='nist'),
+    url(r'^reset',views.reset,name='reset')
 ]

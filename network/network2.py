@@ -148,7 +148,6 @@ class Network2(object):
         json.dump(data, f)
         f.close()
 
-
     #### Loading a Network
     def load(self,filename):
         """Load a neural network from the file ``filename``.  Returns an
@@ -160,6 +159,12 @@ class Network2(object):
         f.close()
         self.weights = [np.array(w) for w in data["weights"]]
         self.biases = [np.array(b) for b in data["biases"]]
+
+
+    def reset(self):
+        self.biases = [np.random.randn(y, 1) for y in self.sizes[1:]]
+        self.weights = [np.random.randn(y, x)
+                        for x, y in zip(self.sizes[:-1], self.sizes[1:])]
 
 #### Miscellaneous functions
 def sigmoid(z):

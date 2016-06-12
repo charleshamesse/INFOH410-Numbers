@@ -28,7 +28,7 @@ def train(request):
     print("begin")
     training_data, validation_data, test_data = mnl.load_data_wrapper()
     print("loaded ... starting training")
-    ar,steps = net.SGD(training_data, 30, 10, 3.0, test_data=test_data)
+    ar,steps = net.SGD(training_data, 4, 10, 3.0, test_data=test_data)
     data = {'error':ar,'batch':steps}
     return JsonResponse(data)
 
@@ -50,15 +50,20 @@ def recognize(request):
 def recognizeMNist(request):
     path = os.getcwd() + "/app/static/mnist.pkl.gz"
     f = gzip.open(path, 'rb')
-    data_x,data_y, yolo = cPickle.load(f)
-    d_x, d_y = data_x
+    training_data, validation_data, test_data = cPickle.load(f)
+    d_x, d_y = test_data
     f.close()
     rand = random.randint(0,len(d_x))
     ans = net.feedforward(d_x[rand].reshape((784,1)))
     img = d_x[rand].reshape(28,28)*255
     img = scipy.ndimage.zoom(img, 10, order=0)
     img = img.reshape((78400,1)).tolist()
-    return JsonResponse({'ans':np.argmax(ans),'img':img})
+    return JsonResponse({'ans':np.argmax(ans),'img':img,'x':range(0,9),'ansL':ans.tolist()})
+
+
+def reset(request):
+    net.reset()
+    return HttpResponse("good")
 
 
 def block_mean(ar, fact):

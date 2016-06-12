@@ -67,12 +67,14 @@
             <h3> Image from MNIST</h3>
             <canvas id="n-canvas2" width="280" height="280" class="n-canvas"></canvas><br/>
             <button ng-click="nist()" class="btn btn-primary">Recognize</button>
-
         </div>
         <div class="col-lg-6">
             <h3> Result from NN</h3>
             <h1 ng-show="!loadingNIST">{[{ recognizedNIST }]}</h1>
             <div ng-show="loadingNIST" class="loading" align="center"><img src="/static/svg/gears.svg">LOADING...</div>
+            <canvas id="bar" ng-show="!loadingNIST" class="chart chart-bar"
+              chart-data="dataN" chart-labels="labelsN" chart-series="seriesN">
+            </canvas>
         </div>
     </div>
 
@@ -85,6 +87,7 @@
             Only one configuration can be saved !</p>
             <button ng-click="save()" class="btn btn-default">Save</button>
             <button ng-click="load()" class="btn btn-primary">Load</button>
+            <button ng-click="reset()" class="btn btn-danger">Reset</button>
             <div class="col-lg-12">
                 <p ng-show="success" class="success"> Everything went ok </p>
                 <p ng-show="error" class="error"> Something bad happend </p>

@@ -36,8 +36,7 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
                 success(function(data, status, headers, config) {
                     $scope.recognized = data.ans;
                     $scope.labelsR = data.x;
-                    $scope.seriesR = ['Series A'];
-
+                    $scope.seriesR = ['Output'];
                     $scope.dataR = [data.ansL];
                 }).
                 error(function(data, status, headers, config) {
@@ -92,11 +91,25 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
                         imgdata.data[i] = 255;
                 }
                 ctx.putImageData(imgdata,0,0);
+                $scope.labelsN = data.x;
+                $scope.seriesN = ['Output'];
+                $scope.dataN = [data.ansL];
                 $scope.loadingNIST = false;
             })
             .error(function(response){
             })
         };
+        $scope.reset = function(){
+            $http.get("/reset",{})
+            .success(function(response) {
+                $scope.error = false;
+                $scope.success = true;
+            })
+            .error(function(response){
+                $scope.error = true;
+                $scope.success = false;
+            })
+        }
     })
     .directive("drawing", function () {
         return {
