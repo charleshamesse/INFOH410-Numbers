@@ -4,6 +4,7 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
         $interpolateProvider.endSymbol('}]}');
     })
     .controller('MainController', function ($scope, $http,$timeout) {
+        // Numbers
         // Train
         $scope.train = function () {
             $scope.loading = true;
@@ -27,7 +28,7 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
             var canvas = angular.element( document.querySelector( '#n-canvas' ) ).get(0);
             var ctx = canvas.getContext('2d');
             var yolo = ctx.getImageData(0,0,280,280);
-            var img = []
+            var img = [];
             for(i=3;i<yolo.data.length;i+=4){
                 img.push(yolo.data[i]);
             }
@@ -110,6 +111,31 @@ var app = angular.module('Numbers', ['ngSanitize','chart.js'])
                 $scope.success = false;
             })
         }
+
+        // Functions
+        // Launch
+        $scope.function_launch = function () {
+            $scope.loading = true;
+            $http.post("/fn/go",{
+                'layers': "1",
+                'nodes': "20",
+                'function': $scope.function,
+                'iterations': $scope.iterations,
+                'rate': $scope.rate
+            })
+            .success(function(response) {
+                $scope.response = response;
+                $scope.loading = false;
+                // plot
+                $scope.labels = response.xaxis;
+                $scope.series = ['Target', 'Output'];
+                $scope.data = [response.target, response.output];
+            })
+            .error(function(response) {
+                $scope.response = "Error: " + response;
+            });
+        };
+
     })
     .directive("drawing", function () {
         return {
